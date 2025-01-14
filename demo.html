@@ -1,0 +1,42 @@
+<!DOCTYPE html> 
+<body>
+
+<h1>Integrating OpenAI & Google's Gemini Live</h1>
+<p> By Tina Nguyen </p>
+<br>
+<p> I used Livekit's implementation of an OpenAI agent and weaved it with the Gemini API to
+    create what I believe to be a more reasonable way to interact with an AI agent using video feed.
+
+    You can try out Gemini Live in Google's AI studio and it processes webcam feed along with speech pretty
+    efficiently. However, I noticed that if you wanted Gemini to process an action, you would have to 
+    do it before mentioning it, and it won't respond on its own without you prompting it. In most cases
+    that logic is reasonable, but as agentic software becomes more popular, it's ideal to strive for more
+    human-like interactions.
+
+    1. User speaks -> Agent speaks -> Action -> User speaks -> Agent speaks
+      (Get attention)                Recording (Mentions action)
+
+    Frames of your webcam are fed into the LLM after you speak and stops when you speak again. 
+    In this sense, you have to trigger the recording and its ending manually. What if you didn't have to?
+
+    As of right now, I've implemented motion detection to determine when the model stops watching and responds.
+    I plan on considering more factors, but I think motion is the most important. 
+    I was inspired by security camera systems - the events that are recorded are motion and audio triggered. 
+
+    Proposed:
+    1. User speaks -> Action -> Agent speaks
+    (Mentions incoming action) -> Recording -> Process input 
+
+    When you want to show an action or video on video call, I think it's more natural to say "look at this" and get a reaction
+    without prompting again. At the same time, the LLM wouldn't have to process and transcribe that extra speech (saving credits!).
+
+    As for determining whether or not to record, I send an out-of-band request to OpenAI's server to determine whether or not
+    the user mentioned something regarding their surroundings or something visual. It doesn't add much latency and promotes
+    resource efficiency in my opinion. 
+
+    Unfortunately I can't host this project because of the costs, but I hope to collaborate wth Livekit in the future to bring
+    this to life for everyone. 
+
+</p>
+</body>
+</html>
